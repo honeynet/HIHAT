@@ -1,0 +1,153 @@
+
+a:visited {text-decoration: none; color:#000000;}
+a:focus {text-decoration: none; color:#000000;}
+a:link {text-decoration: none; color:#000000;}
+a:active {text-decoration: none; color:#000000;}
+a:hover {text-decoration: none; color:#000000;}
+
+body {
+		background-color: #b2c3d5;
+      margin-left: 0px;
+      margin-top: 0px;
+      margin-right: 0px;
+      margin-bottom: 0px;
+}
+
+.item {
+	padding: 2px;
+	width: 920px;
+	overflow:scroll; /*  hidden, scroll, auto */ }
+}
+
+table {
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 0px; 
+}
+
+td {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.blind {
+	width: 37px;
+}
+.blind_trash {
+	width: 37px;	
+	text-align: center;
+  background-color: #ffffff;
+	
+}
+
+.headline {
+  font-size:22px;
+  text-decoration:underline;
+  font-weight: bolder;
+	color: #111111;   }
+.right_stat {    
+	background-color: #ffffff;
+	color: #034085; 
+  text-align: center; 
+  width: 75px;      }
+.left_stat {  
+  width: 250px;
+	background-color: #ffffff;
+	color: #000000; }
+.percent_stat {  
+	background-color: #ffffff;
+	color: #9D9E9F; 
+  text-align: center; 
+  width: 55px;}  
+
+.left_source_at_pattern {  
+  width: 596px;   /* 850 - width left_stat - 2*cellspacing,etc.*/
+	background-color: #ffffff;
+	color: #000000;  }   
+.mostactive_stat_hits {  
+  width: 140px;   
+	background-color: #ffffff;
+	color: #034085;  }
+.mostactive_stat_lastid {  
+  width: 180px;   
+	background-color: #ffffff;
+	color: #9D9E9F;  }
+  	
+		
+.ID_a {
+/*	width: 37px;
+	background-color: #ffffff; */
+  
+  	width: 37px;
+	background-color: #6587ab;
+	color: White;
+	font-weight: bold;  
+  
+  
+  }
+.source_a {
+	text-align: left;
+	background-color: #ffffff; }
+.ip-address_a {
+	width: 107px;
+	background-color: #ffffff; }
+.browser_a {
+	width: 108px;
+	background-color: #ffffff;
+  overflow:scroll; /*  hidden, scroll, auto */  }
+.time_a {
+	width: 135px;
+	background-color: #ffffff; }
+.eval_a {
+	width: 142px;
+	background-color: #ffffff;	}
+.ref_a {
+	text-align: left;
+	background-color: #ffffff;
+  overflow:scroll; /*  hidden, scroll, auto */ }
+.main {
+	text-align: left;
+	background-color: #ffffff; }
+
+.ID_b {
+	width: 37px;
+	background-color: #6587ab;
+	color: White;
+	font-weight: bold;  }
+.source_b {
+	text-align: left;
+	background-color: #e0e7ee; }
+.ip-address_b {
+	width: 107px;
+	background-color: #e0e7ee; }
+.browser_b {
+	width: 108px;
+	background-color: #e0e7ee; 
+  overflow:scroll; /*  hidden, scroll, auto */   }
+.time_b {
+	width: 135px;
+	background-color: #e0e7ee; }
+.eval_b {
+	width: 142px;
+	background-color: #e0e7ee;	}
+.ref_b {
+	text-align: left;
+	background-color: #e0e7ee; 
+  overflow:scroll; /*  hidden, scroll, auto */    }
+.main_b {
+	text-align: left;
+	background-color: #ffffff; }
+	
+	
+.details {
+	background-color: #ffffff; }
+.details_server {
+	width: 950px;
+	background-color: #ffffff; }
+	
+.variable_leftpart {
+}
+.variable_rightpart {
+}
+	
