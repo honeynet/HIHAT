@@ -1,0 +1,137 @@
+<?php   
+
+/* This file is part of HIHAT v1.1
+   ================================
+   Copyright (c) 2007 HIHAT-Project      
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  as published by the Free Software Foundation; either version 2
+  of the License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ 
+*/
+
+    // name of module, adjust to selected application
+    $thisModule_23cdx_ = "phpMyAdmin";    
+    
+    // login-information for logserver
+    $link23 = mysql_connect("localhost", "root", "root", true );
+    
+    
+    // *** DO NOT MODIFY ANYTHING BELOW THIS LINE ***  
+    if(!$link23) {
+        die("No connection to database server!");
+    }
+    if(!mysql_select_db("honeyweb")) {
+        die("Unable to use database, error: ".mysql_error());
+    }   
+        
+    $Array2String = create_function( '$Array','
+      $SeparationValue23 = ";semcl";
+      $retString = "";
+      if (!is_array($Array))
+        $retString = $Array;
+      else
+        foreach ($Array as $Key => $Value) {
+          if(is_array($Value)) {          
+            //$retString .="MULTI"; 
+            foreach ($Value as $Key2 => $Value2) 
+               if(is_array($Value2)) {
+                  //$retString .="MULTI2 ";
+                  foreach ($Value2 as $Key3 => $Value3) 
+                    if(is_array($Value3)) {
+                         //$retString .="MULTI3 ";
+                         foreach ($Value3 as $Key4 => $Value4) 
+                              if(is_array($Value4))
+                                   $retString .= "NO5DimArraySUPPORT";
+                              else
+                                  $retString .= $Key4. "=".$Value4. $SeparationValue23;   
+                    }                        
+                    else
+                        $retString .= $Key3. "=".$Value3. $SeparationValue23;                
+              }
+               else
+                  $retString .= $Key2. "=".$Value2. $SeparationValue23;                        
+          }
+          else
+            $retString .= $Key."=".$Value. $SeparationValue23;    
+        }
+      return $retString;
+    ');         
+         
+    // Select arrays to add to database
+    $dbArrays = array( $_SERVER, $_GET, $_POST, $_COOKIE );
+    $arrayContent_23cdx_[ 0 ] = "--"; // init array with nonsense
+    
+    // read RAW post data         
+    $rawData_23cdx_ = explode( "&", file_get_contents("php://input"));         
+    foreach ( $rawData_23cdx_ AS $key_23cdx_ => $value_23cdx_ )  {      // put into form: key=value
+        $tempAr_23cdx_ = explode( "=", $rawData_23cdx_[$key_23cdx_], 2 );
+        $rawData2_23cdx_[$tempAr_23cdx_[0]] = $tempAr_23cdx_[1];     // if identical keys exist: only last entry counts
+    }    
+    foreach( $rawData2_23cdx_ AS $key2_23cdx_ => $value2_23cdx_)    // add to Post array if new stuff is found
+       if (!isset($_POST[$key2_23cdx_])) {                        
+            $_POST[ $key2_23cdx_ ] = $value2_23cdx_;                
+       }
+   
+    // for each of these arrays:  read out last entry to avoid duplicates + add data if no duplicate
+    foreach ( $dbArrays AS $dbKeyArray => $dbValueArray ) {       
+       
+        $arrayContent_23cdx_[ $dbKeyArray ] = $Array2String( $dbValueArray );    
+   }      
+   
+   $ip_23cdx_      =  isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : "";       
+   $browser_23cdx_ =  isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : "";
+   $source_23cdx_  =  isset( $_SERVER['PHP_SELF'] ) ? $_SERVER['PHP_SELF'] : "";  
+   
+   $duplicateCounter_23cdx_ = 0;    
+     
+    // checks if same script has made same data-entry        
+    $sql_23cdx_ = "SELECT Source, Value_Server, Value_Get, Value_Post, Value_Cookie, Module FROM main_logs
+                   WHERE        
+                         Value_Server = '".addslashes( htmlentities ( $arrayContent_23cdx_[ 0 ] , ENT_QUOTES )).
+                  "' AND Value_Get =    '".addslashes( htmlentities ( $arrayContent_23cdx_[ 1 ] , ENT_QUOTES )). 
+                  "' AND Value_Post =   '".addslashes( htmlentities ( $arrayContent_23cdx_[ 2 ] , ENT_QUOTES )).
+                  "' AND Value_Cookie = '".addslashes( htmlentities ( $arrayContent_23cdx_[ 3 ] , ENT_QUOTES )).
+                  "' AND Module       = '".addslashes( htmlentities ( $thisModule_23cdx_ , ENT_QUOTES )).
+                  "' AND Source =       '".addslashes( htmlentities ( $source_23cdx_ , ENT_QUOTES)). "'";    
+                  
+    $result_23cdx_ = mysql_query($sql_23cdx_) OR die(mysql_error());
+    while($row23 = mysql_fetch_assoc($result_23cdx_)) {
+        $duplicateCounter_23cdx_++;                 
+    }
+      
+     // add data of array to database
+     $sql_23cdx_ = "INSERT INTO main_logs ( attackerIP, attackerBrowser, Value_Server, 
+                                         Value_Get, Value_Post,Value_Cookie, Source, Module ) VALUES
+              ('".addslashes( htmlentities ( $ip_23cdx_, ENT_QUOTES))."',     
+              '".addslashes( htmlentities ( $browser_23cdx_, ENT_QUOTES))."',
+              '".addslashes( htmlentities ( $arrayContent_23cdx_[ 0 ], ENT_QUOTES))."',
+              '".addslashes( htmlentities ( $arrayContent_23cdx_[ 1 ], ENT_QUOTES))."',
+              '".addslashes( htmlentities ( $arrayContent_23cdx_[ 2 ], ENT_QUOTES))."',
+              '".addslashes( htmlentities ( $arrayContent_23cdx_[ 3 ], ENT_QUOTES))."',
+              '".addslashes( htmlentities ( $source_23cdx_, ENT_QUOTES))."',                 
+              '".addslashes( htmlentities ( $thisModule_23cdx_ , ENT_QUOTES )). "')";
+               
+    if ( $duplicateCounter_23cdx_ == 0 & $arrayContent_23cdx_[ 0 ] != '' )     // don't add duplicates or empty fields
+        mysql_query($sql_23cdx_) OR die(mysql_error());             
+    
+    @mysql_free_result($result_23cdx_);
+    @mysql_close($link23);  
+    $value = "";
+    $key = "";
+    $max_23cdx_ = "";
+    $sql_23cdx_ = "";
+    
+    $dbArrays = "";    
+    $dbNameOfTargettable = "";
+?>
