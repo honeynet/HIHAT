@@ -1,14 +1,16 @@
 # HIHAT
 The High Interaction Honeypot Analysis Toolkit
 
+The related paper can be found [here](https://www.researchgate.net/publication/228932600_A_generic_toolkit_for_converting_web_applications_into_high-interaction_honeypots).
+
 NB: Development on this tool has been ceased.
 
 Analysis Tool 	    : Source code of the analysis tool HIHAT
-Honeypot-Creator	: Source code of the Honeypot-Creator
-Logserver		    : Script for the creation of database tables at the logserver
-INSTALL			    - Installation instructions for the logserver, the honeypots and HIHAT
-LICENSE			    - GNU General Public License
-README			    - This file
+Honeypot-Creator	  : Source code of the Honeypot-Creator
+Logserver		        : Script for the creation of database tables at the logserver
+INSTALL			        - Installation instructions for the logserver, the honeypots and HIHAT
+LICENSE			        - GNU General Public License
+README			        - This file
 
 
 ------------------
